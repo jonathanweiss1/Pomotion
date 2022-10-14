@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pomotion/settings.dart';
 import 'package:pomotion/timer_components/display.dart';
 import 'package:pomotion/timer_components/buttons.dart';
 import 'package:pomotion/timer.dart';
+import 'package:pomotion/scaffold.dart';
 
 /// Main interface for pomodoro timer
 ///
@@ -17,7 +19,37 @@ class TimerScreen extends StatefulWidget {
 
 class _TimerScreenState extends State<TimerScreen> {
   bool running = false; // state of timer (running / paused)
-  PomoTimer timer = PomoTimer(focusTime: 10, relaxTime: 5);
+  Settings _settings = Settings();
+  int focusTime = 25;
+  int relaxTime = 5;
+  PomoTimer timer = PomoTimer(focusTime: 25 * 60, relaxTime: 5 * 60);
+
+  @override
+  void initState() {
+    super.initState();
+    initTimer();
+    _settings.setCallback(initTimer);
+  }
+
+  void initTimer() {
+    print("initTimer");
+    _loadFocus().then((focusValue) {
+      _loadRelax().then((relaxValue) {
+        setState(() {
+          timer = (PomoTimer(
+              focusTime: focusValue * 60, relaxTime: relaxValue * 60));
+        });
+      });
+    });
+  }
+
+  Future<int> _loadFocus() async {
+    return _settings.getFocusTimeMinutes();
+  }
+
+  Future<int> _loadRelax() async {
+    return _settings.getRelaxTimeMinutes();
+  }
 
   void _onPlayPause(bool running) {
     /// this is passed to the timer to update ui when necessary
@@ -55,18 +87,20 @@ class _TimerScreenState extends State<TimerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          TimerDisplay(secondsLeft: timer.getCurrentTimeSeconds()),
-          TimerButtons(
-            running: running,
-            onPlayPause: _onPlayPause,
-            onSkip: _onSkip,
-          )
-        ],
-      ),
-    );
+    return scaffold(
+        context,
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              TimerDisplay(secondsLeft: timer.getCurrentTimeSeconds()),
+              TimerButtons(
+                running: running,
+                onPlayPause: _onPlayPause,
+                onSkip: _onSkip,
+              )
+            ],
+          ),
+        ));
   }
 }

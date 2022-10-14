@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pomotion/settingsscreen.dart';
 import 'package:pomotion/themes.dart';
 import 'timerscreen.dart';
 
@@ -10,15 +11,11 @@ class FancyHelloWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            "Pomotion",
-            textDirection: TextDirection.ltr,
-          ),
-        ),
-        body: const TimerScreen(),
-      ),
+      initialRoute: "/",
+      routes: {
+        "/": (BuildContext context) => const TimerScreen(),
+        "/settings": (BuildContext context) => const SettingsScreen()
+      },
       theme: lightTheme,
     );
   }

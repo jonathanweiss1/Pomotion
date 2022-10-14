@@ -6,10 +6,17 @@ import 'package:flutter/material.dart';
 /// @email: jonathan.weiss.ansbach@gmail.com
 /// @date: 02.10.2022
 
+var lightThemeBackground = Colors.grey[50];
+var lightThemePrimary = Colors.deepOrange;
 final ThemeData lightTheme = ThemeData(
-    primarySwatch: Colors.deepOrange,
+    primarySwatch: lightThemePrimary,
     textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-      foregroundColor: Colors.deepOrange[700],
+      foregroundColor: lightThemePrimary[700],
       backgroundColor: Colors.grey[200],
-    )));
+    )),
+    appBarTheme: AppBarTheme(
+        backgroundColor: lightThemeBackground,
+        elevation: 0,
+        foregroundColor: lightThemePrimary),
+    scaffoldBackgroundColor: lightThemeBackground);
