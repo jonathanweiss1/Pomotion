@@ -32,13 +32,13 @@ class _TimerScreenState extends State<TimerScreen> {
   }
 
   void initTimer() {
-    print("initTimer");
     _loadFocus().then((focusValue) {
       _loadRelax().then((relaxValue) {
         setState(() {
           timer = (PomoTimer(
               focusTime: focusValue * 60, relaxTime: relaxValue * 60));
         });
+        _onPlayPause(false);
       });
     });
   }
@@ -91,9 +91,13 @@ class _TimerScreenState extends State<TimerScreen> {
         context,
         Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TimerDisplay(secondsLeft: timer.getCurrentTimeSeconds()),
+              TimerDisplay(
+                  secondsLeft: timer.getCurrentTimeSeconds(),
+                  secondsInitial: timer.getPhase() == Phase.focus
+                      ? timer.focusTime
+                      : timer.relaxTime),
               TimerButtons(
                 running: running,
                 onPlayPause: _onPlayPause,
