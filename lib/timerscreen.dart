@@ -90,21 +90,28 @@ class _TimerScreenState extends State<TimerScreen> {
     return scaffold(
         context,
         Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TimerDisplay(
-                  secondsLeft: timer.getCurrentTimeSeconds(),
-                  secondsInitial: timer.getPhase() == Phase.focus
-                      ? timer.focusTime
-                      : timer.relaxTime),
-              TimerButtons(
-                running: running,
-                onPlayPause: _onPlayPause,
-                onSkip: _onSkip,
-              )
-            ],
-          ),
+          child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 50),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Container(
+                      margin: EdgeInsets.symmetric(vertical: 10.0),
+                      child: TimerDisplay(
+                          secondsLeft: timer.getCurrentTimeSeconds(),
+                          secondsInitial: timer.getPhase() == Phase.focus
+                              ? timer.focusTime
+                              : timer.relaxTime)),
+                  Container(
+                      margin: EdgeInsets.symmetric(vertical: 10.0),
+                      child: TimerButtons(
+                        running: running,
+                        onPlayPause: _onPlayPause,
+                        onSkip: _onSkip,
+                      ))
+                ],
+              )),
         ));
   }
 }

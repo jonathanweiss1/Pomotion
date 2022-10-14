@@ -6,10 +6,14 @@ import 'package:flutter/material.dart';
 /// @email: jonathan.weiss.ansbach@gmail.com
 /// @date: 02.10.2022
 
-var lightThemeBackground = Colors.grey[50];
+var lightThemeBackground = Colors.grey[200];
 var lightThemePrimary = Colors.deepOrange;
 final ThemeData lightTheme = ThemeData(
     primarySwatch: lightThemePrimary,
+    primaryColor: Colors.deepOrange[100],
+    primaryColorDark: Colors.deepOrange[300],
+    primaryColorLight: Colors.deepOrange[50],
+    focusColor: lightThemePrimary,
     textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
       foregroundColor: lightThemePrimary[700],
@@ -19,4 +23,6 @@ final ThemeData lightTheme = ThemeData(
         backgroundColor: lightThemeBackground,
         elevation: 0,
         foregroundColor: lightThemePrimary),
-    scaffoldBackgroundColor: lightThemeBackground);
+    scaffoldBackgroundColor: lightThemeBackground,
+    shadowColor: Colors.grey[400],
+    splashColor: Colors.grey[50]);
